@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
-import settings
+from settings import Settings
 import time
 
+settings = Settings()
 # app_window configuration
 
 app_win = tk.Tk()
@@ -51,9 +52,9 @@ def countdown(count=settings.countdown):
 def start_typing():
     global start_time
     text_entry['state'] = "normal"
-    text_entry.delete(0,tk.END)
+    text_entry.delete(0, tk.END)
     info_panel.pack_forget()
-    sentence = 'A Brown Fox Jumped Over The Lazy Dogs quickly'
+    sentence = 'A brown fox jumped over the lazy dogs quickly'
     start_time = time.perf_counter()
     text_label['text'] = sentence
     text_entry.focus()
@@ -62,20 +63,23 @@ def start_typing():
 
 title = tk.Label(app_win, text='Typing Speed Test', foreground=settings.font_color, 
                 background=app_win['bg'], font=settings.title_font)
-title.pack(side=tk.TOP, pady=40)
+title.pack(side=tk.TOP, pady=settings.title_pady)
 
 text_label = tk.Label(app_win, text='Tap the button to start', foreground=settings.font_color, 
                 background=app_win['bg'], font=settings.text_font)
-text_label.pack(side=tk.TOP, pady=10)
+text_label.pack(side=tk.TOP, pady=settings.text_label_pady)
 
-text_entry = tk.Entry(app_win, width=50, font=settings.input_font, bg=app_win["bg"],
-                      justify=tk.CENTER, bd=10, relief=tk.FLAT, highlightcolor=settings.font_color,
-                      state= "disabled", disabledbackground=app_win["bg"], disabledforeground=settings.dis_color)
-text_entry.pack(side=tk.TOP, pady=20)
+text_entry = tk.Entry(app_win, width=settings.text_entry_width, font=settings.input_font, 
+                      bg=app_win["bg"], justify=tk.CENTER, bd=settings.text_entry_bd, 
+                      relief=tk.FLAT, highlightcolor=settings.font_color, state= "disabled", 
+                      disabledbackground=app_win["bg"], disabledforeground=settings.disabled_color)
+text_entry.pack(side=tk.TOP, pady=settings.text_entry_pady)
 text_entry.bind('<KeyPress>',comparison)
 
-start_button = tk.Button(app_win, text = 'Start', width=8, height=2, bd=0, command=countdown)
-start_button.pack(side=tk.BOTTOM, pady=20)
+start_button = tk.Button(app_win, text = 'Start', width=settings.start_button_width, 
+                        height=settings.start_button_height, bd=settings.start_button_bd, 
+                        command=countdown)
+start_button.pack(side=tk.BOTTOM, pady=settings.start_button_pady)
 
 label_counter = tk.Label(app_win, foreground=settings.font_color, 
                 background=app_win['bg'], font=settings.title_font)
