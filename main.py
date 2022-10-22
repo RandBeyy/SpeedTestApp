@@ -21,7 +21,7 @@ def show_score():
     target = text_label['text']
     enter = text_entry.get()
     coincidence = 0
-    for i in range(len(target)):
+    for i in range(len(enter)):
         if enter[i] == target[i]: coincidence += 1
     accuracy = (coincidence * 100) // len(target)
     accuracy_label['text'] = f'Accuracy: {accuracy}%  '
@@ -32,9 +32,9 @@ def show_score():
     info_panel.pack(side=tk.BOTTOM)
 
 
-def comparison(event): 
+def comparison(event: tk.Event): 
     global end_time
-    if len(text_label['text']) == len(text_entry.get()):
+    if len(text_label['text']) == len(text_entry.get()) or event.keycode == 603979789:
         end_time = time.perf_counter()
         text_entry['state'] = 'disabled'
         app_win.focus()
@@ -75,7 +75,11 @@ text_entry = tk.Entry(app_win, width=settings.text_entry_width, font=settings.in
                       relief=tk.FLAT, highlightcolor=settings.font_color, state= "disabled", 
                       disabledbackground=app_win["bg"], disabledforeground=settings.disabled_color)
 text_entry.pack(side=tk.TOP, pady=settings.text_entry_pady)
-text_entry.bind('<KeyPress>',comparison)
+text_entry.bind('<KeyPress>', comparison)
+
+hint_label = tk.Label(app_win, text='To terminate press Enter', foreground=settings.font_color, 
+                background=app_win['bg'], font=settings.input_font)
+hint_label.pack(side=tk.TOP, pady=settings.hint_label_pady)
 
 start_button = tk.Button(app_win, text = 'Start', width=settings.start_button_width, 
                         height=settings.start_button_height, bd=settings.start_button_bd, 

@@ -32,6 +32,13 @@ class Settings:
         self.start_button_bd = 0
         self.start_button_pady = 20
 
+        # Counter settings:
+        self.countdown = 3
+
+        # hint_label settings:
+        self.hint_label_pady = 5
+
+
         self.quotes = ("For the things we have to learn before we can do them, we learn by doing them",
                   "Practice doesn't make perfect.Practice reduces the imperfection.",
                   "A photograph shouldn't be just a picture, it should be a philosophy.",
@@ -45,5 +52,3 @@ class Settings:
                   "The only way to go fast, is to go well.",
                   'if you can write "hello world" you can change the world',
                   "Happiness should be a function without any parameters.")
-
-        self.countdown = 3
