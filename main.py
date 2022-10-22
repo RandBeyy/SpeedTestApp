@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from settings import Settings
 import time
+from random import choice
 
 settings = Settings()
 # app_window configuration
@@ -15,7 +16,7 @@ app_win.configure(bg=settings.bg_color)
 
 def show_score():
     time_spend = end_time - start_time
-    time_label['text'] = f'time: {time_spend:0.2f}secs  '
+    time_label['text'] = f'Time: {time_spend:0.2f}secs  '
     
     target = text_label['text']
     enter = text_entry.get()
@@ -54,7 +55,7 @@ def start_typing():
     text_entry['state'] = "normal"
     text_entry.delete(0, tk.END)
     info_panel.pack_forget()
-    sentence = 'A brown fox jumped over the lazy dogs quickly'
+    sentence = choice(settings.quotes)
     start_time = time.perf_counter()
     text_label['text'] = sentence
     text_entry.focus()
