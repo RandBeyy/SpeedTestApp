@@ -3,8 +3,6 @@ from tkinter import ttk
 import settings
 import time
 
-start_time = float()
-end_time = float()
 # app_window configuration
 
 app_win = tk.Tk()
@@ -12,7 +10,7 @@ app_win.geometry(settings.window_size)
 app_win.title("Main app_window")
 app_win.configure(bg=settings.bg_color)
 
-# Placing widgets
+# Methods
 
 def show_score():
     time_spend = end_time - start_time
@@ -31,13 +29,6 @@ def show_score():
 
     info_panel.pack(side=tk.BOTTOM)
 
-title = tk.Label(app_win, text='Typing Speed Test', foreground=settings.font_color, 
-                background=app_win['bg'], font=settings.title_font)
-title.pack(side=tk.TOP, pady=40)
-
-text_label = tk.Label(app_win, text='Tap the button to start', foreground=settings.font_color, 
-                background=app_win['bg'], font=settings.text_font)
-text_label.pack(side=tk.TOP, pady=10)
 
 def comparison(event): 
     global end_time
@@ -47,11 +38,6 @@ def comparison(event):
         app_win.focus()
         show_score()
 
-text_entry = tk.Entry(app_win, width=50, font=settings.input_font, bg=app_win["bg"],
-                      justify=tk.CENTER, bd=10, relief=tk.FLAT, highlightcolor=settings.font_color,
-                      state= "disabled", disabledbackground=app_win["bg"], disabledforeground=settings.dis_color)
-text_entry.pack(side=tk.TOP, pady=20)
-text_entry.bind('<KeyPress>',comparison)
 
 def countdown(count=settings.countdown):
     label_counter['text'] = count
@@ -60,6 +46,7 @@ def countdown(count=settings.countdown):
     else: 
         label_counter['text'] = ''
         start_typing()
+
 
 def start_typing():
     global start_time
@@ -71,12 +58,29 @@ def start_typing():
     text_label['text'] = sentence
     text_entry.focus()
 
+# Placing Widgets
+
+title = tk.Label(app_win, text='Typing Speed Test', foreground=settings.font_color, 
+                background=app_win['bg'], font=settings.title_font)
+title.pack(side=tk.TOP, pady=40)
+
+text_label = tk.Label(app_win, text='Tap the button to start', foreground=settings.font_color, 
+                background=app_win['bg'], font=settings.text_font)
+text_label.pack(side=tk.TOP, pady=10)
+
+text_entry = tk.Entry(app_win, width=50, font=settings.input_font, bg=app_win["bg"],
+                      justify=tk.CENTER, bd=10, relief=tk.FLAT, highlightcolor=settings.font_color,
+                      state= "disabled", disabledbackground=app_win["bg"], disabledforeground=settings.dis_color)
+text_entry.pack(side=tk.TOP, pady=20)
+text_entry.bind('<KeyPress>',comparison)
 
 start_button = tk.Button(app_win, text = 'Start', width=8, height=2, bd=0, command=countdown)
 start_button.pack(side=tk.BOTTOM, pady=20)
+
 label_counter = tk.Label(app_win, foreground=settings.font_color, 
                 background=app_win['bg'], font=settings.title_font)
 label_counter.pack(side=tk.BOTTOM)
+
 info_panel = tk.PanedWindow(orient ='horizontal')
 time_label = tk.Label(info_panel, foreground=settings.font_color, 
                 background=app_win['bg'], font=settings.text_font)
@@ -88,6 +92,8 @@ info_panel.add(time_label)
 info_panel.add(accuracy_label)
 info_panel.add(wpm_label)
 
+start_time = float()
+end_time = float()
 
 
 
