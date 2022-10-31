@@ -3,6 +3,7 @@ from tkinter import ttk
 from settings import Settings
 import time
 from random import choice
+import csv
 
 settings = Settings()
 # app_window configuration
@@ -14,11 +15,12 @@ app_win.configure(bg=settings.bg_color)
 
 # Methods
 
+
 def show_score():
     time_spend = end_time - start_time
-    time_label['text'] = f'Time: {time_spend:0.2f}secs  '
     if time_spend > 30: time_label['fg'] = settings.red_col
     else: time_label['fg'] = settings.font_color
+    time_label['text'] = f'Time: {time_spend:0.2f}secs  '
 
     target = text_label['text']
     enter = text_entry.get()
