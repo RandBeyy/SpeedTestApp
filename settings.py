@@ -36,7 +36,7 @@ class Settings:
         self.countdown = 3
 
         # hint_label settings:
-        self.hint_label_pady = 5
+        self.hint_label_pady = 0
 
 
         self.quotes = ("For the things we have to learn before we can do them, we learn by doing them",

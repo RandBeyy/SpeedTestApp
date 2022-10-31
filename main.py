@@ -17,16 +17,22 @@ app_win.configure(bg=settings.bg_color)
 def show_score():
     time_spend = end_time - start_time
     time_label['text'] = f'Time: {time_spend:0.2f}secs  '
-    
+    if time_spend > 30: time_label['fg'] = settings.red_col
+    else: time_label['fg'] = settings.font_color
+
     target = text_label['text']
     enter = text_entry.get()
     coincidence = 0
     for i in range(len(enter)):
         if enter[i] == target[i]: coincidence += 1
     accuracy = (coincidence * 100) // len(target)
+    if accuracy < 50: accuracy_label['fg'] = settings.red_col
+    else: accuracy_label['fg'] = settings.font_color
     accuracy_label['text'] = f'Accuracy: {accuracy}%  '
 
     wpm = (len(enter) / time_spend) * 60
+    if wpm < 100: wpm_label['fg'] = settings.red_col
+    else: wpm_label['fg'] = settings.font_color
     wpm_label['text'] = f'Wpm: {wpm:0.2f}  '
 
     info_panel.pack(side=tk.BOTTOM)
@@ -77,7 +83,7 @@ text_entry = tk.Entry(app_win, width=settings.text_entry_width, font=settings.in
 text_entry.pack(side=tk.TOP, pady=settings.text_entry_pady)
 text_entry.bind('<KeyPress>', comparison)
 
-hint_label = tk.Label(app_win, text='To terminate press Enter', foreground=settings.font_color, 
+hint_label = tk.Label(app_win, text='When finish typing or to terminate press Enter', foreground=settings.font_color, 
                 background=app_win['bg'], font=settings.input_font)
 hint_label.pack(side=tk.TOP, pady=settings.hint_label_pady)
 
